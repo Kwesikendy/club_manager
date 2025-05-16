@@ -1,0 +1,17 @@
+/* Custom animations */
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+/* Robotics-themed overrides */
+.robotics-text {
+    font-family: 'Orbitron', sans-serif;
+    text-shadow: 0 0 5px rgba(59, 130, 246, 0.5);
+}
+
+/* Login page background */
+.auth-bg {
+    background: linear-gradient(rgba(0,0,0,0.7)), 
+                url('../images/bg-auth.jpg') center/cover;
+}
