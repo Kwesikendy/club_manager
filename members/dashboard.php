@@ -47,7 +47,7 @@ $user = $stmt->fetch();
         }
     </script>
 </head>
-<h1>Hello, <?= htmlspecialchars($user['full_name']) ?>!</h1>
+
 <body class="bg-gray-100 font-sans">
     <!-- Sidebar -->
     <div class="flex h-screen">

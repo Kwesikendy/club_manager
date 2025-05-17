@@ -117,6 +117,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <option value="300">300 Level</option>
                         <option value="400">400 Level</option>
                     </select>
+                    <div>
+    <label class="block text-gray-700 mb-1">Bio (Tell us about yourself)</label>
+    <textarea name="bio" rows="3" 
+              class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500"
+              placeholder="Your interests, skills, etc."></textarea>
+</div>
                 <div class="pt-4">
                     <button type="submit" 
                             class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-medium 

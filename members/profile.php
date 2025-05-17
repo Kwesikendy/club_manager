@@ -129,32 +129,72 @@ $user = $stmt->fetch();
     </div>
 
     <!-- Profile Picture Upload Script -->
-    <script>
-        document.getElementById('uploadTrigger').addEventListener('click', (e) => {
-            e.preventDefault();
-            document.getElementById('profileUpload').click();
-        });
+   <script>
+// Handle profile form submission via AJAX
+document.getElementById('profileForm').addEventListener('submit', function(e) {
+    e.preventDefault(); // prevent normal form submission
 
-        document.getElementById('profileUpload').addEventListener('change', function() {
-            if (this.files && this.files[0]) {
-                const formData = new FormData();
-                formData.append('profile_pic', this.files[0]);
-                formData.append('user_id', <?= $_SESSION['user_id'] ?>);
+    const form = this;
+    const formData = new FormData(form);
 
-                fetch('../process/upload-profile-pic.php', {
-                    method: 'POST',
-                    body: formData
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        window.location.reload();
-                    } else {
-                        alert(data.message || 'Upload failed');
-                    }
-                });
-            }
-        });
-    </script>
+    fetch(form.action, {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        alert(data.message);
+        if (data.success) {
+            // Redirect after 1.5 seconds to dashboard page
+            setTimeout(() => {
+                window.location.href = 'dashboard.php'; // adjust path if needed
+            }, 1500);
+        }
+    })
+    .catch(() => {
+        alert('An error occurred. Please try again.');
+    });
+});
+
+// Optional: If you have a profile picture upload trigger/button
+const uploadTrigger = document.getElementById('uploadTrigger');
+const profileUploadInput = document.getElementById('profileUpload');
+
+if (uploadTrigger && profileUploadInput) {
+    uploadTrigger.addEventListener('click', (e) => {
+        e.preventDefault();
+        profileUploadInput.click();
+    });
+
+    profileUploadInput.addEventListener('change', function() {
+        if (this.files && this.files[0]) {
+            const formData = new FormData();
+            formData.append('profile_pic', this.files[0]);
+            // If you need to send user_id or other data, append here:
+            // formData.append('user_id', '<?= $_SESSION['user_id'] ?>');
+
+            fetch('../process/upload-profile-pic.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Reload to reflect new profile picture
+                    window.location.reload();
+                } else {
+                    alert(data.message || 'Upload failed');
+                }
+            })
+            .catch(() => {
+                alert('An error occurred during upload.');
+            });
+        }
+    });
+}
+</script>
+
+
+    
 </body>
 </html>

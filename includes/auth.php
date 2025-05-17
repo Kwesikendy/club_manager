@@ -24,12 +24,19 @@ function redirectIfNotLoggedIn() {
 }
 
 /**
- * Check if user is admin (optional)
+ * Check if user is admin and redirect if not
  */
 function checkAdmin() {
-    if (!isset($_SESSION['is_admin']) || $_SESSION['is_admin'] !== true) {
+    if (!isAdmin()) {
         header('Location: ../index.php');
         exit();
     }
+}
+
+/**
+ * Return true if user is admin, false otherwise
+ */
+function isAdmin() {
+    return isset($_SESSION['is_admin']) && $_SESSION['is_admin'] === true;
 }
 ?>
